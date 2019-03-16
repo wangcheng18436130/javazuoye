@@ -1,0 +1,40 @@
+package com.yychat.view;
+
+import javax.swing.*;
+
+public class Friendchat extends JFrame{
+	
+	JScrollPane jsp;
+	JTextArea jta;
+	
+	
+	JPanel jp;
+	JTextField jtf;
+	JButton jb;
+	
+	public Friendchat(){
+		
+		jsp=new JScrollPane();
+		jta=new JTextArea();
+		this.add(jsp,"Center");
+		
+		
+		jp=new JPanel();
+		jtf=new JTextField(15);
+		jb=new JButton("·¢ËÍ");
+				jp.add(jtf);jp.add(jb);
+				this.add(jp,"South");
+				
+				this.setSize(240,240);
+				this.setLocationRelativeTo(null);
+				//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	this.setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		Friendchat friendChat=new Friendchat();
+		// TODO Auto-generated method stub
+
+	}
+
+}

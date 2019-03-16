@@ -3,11 +3,12 @@ package com.yychat.view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
-public class Friendlist  extends JFrame implements ActionListener{//容器
+public class Friendlist  extends JFrame implements ActionListener,MouseListener{//容器
 	//成员变量
 	CardLayout cardLayout;
 	
@@ -50,6 +51,9 @@ public class Friendlist  extends JFrame implements ActionListener{//容器
 
 
 			public static final String LEFT1 = null;
+
+
+			private static final String JLabel = null;
 			JLabel[] myStrangerJLabel=new JLabel[MYCOUNT];
 			
 			JPanel myStrangerBlackListPanel1;
@@ -57,8 +61,12 @@ public class Friendlist  extends JFrame implements ActionListener{//容器
 			//南部
 			JButton blackListButton1;
 			
-	
-	public Friendlist(){
+	String  userName;//成员变量
+
+
+	private Object jlbl;
+	public Friendlist(String  userName){//形参
+		this.userName=userName;
 		//创建第一张卡片
 		myFriendPanel =new JPanel(new BorderLayout());
   		System.out.println(myFriendPanel.getLayout());
@@ -72,7 +80,8 @@ public class Friendlist  extends JFrame implements ActionListener{//容器
   	    //中部
   		myFriendListJPanel=new JPanel(new GridLayout(MYFRIENDCOUNT-1,1));
 		for(int i=1;i<MYFRIENDCOUNT;i++){
-			myFriendJLabel[i]=new JLabel(i+"",new ImageIcon("images/yy2.gif"),JLabel.LEFT);
+			myFriendJLabel[i]=new JLabel(i+"",new ImageIcon("images/yy2.gif"),JLabel.LEFT);//问题
+			myFriendJLabel[i].addMouseListener(this);
 			myFriendListJPanel.add(myFriendJLabel[i]);
 		}
 		
@@ -109,7 +118,7 @@ public class Friendlist  extends JFrame implements ActionListener{//容器
 		//中部
 		myStrangerListJPanel=new JPanel(new GridLayout(MYCOUNT-1,1));
 		for(int i=1;i<MYCOUNT;i++){
-			myStrangerJLabel[i]=new JLabel(i+"",new ImageIcon("images/YY1.gif"),JLabel.LEFT);
+			myStrangerJLabel[i]=new JLabel(i+"",new ImageIcon("images/YY1.gif"),JLabel.);
 			myStrangerListJPanel.add(myStrangerJLabel[i]);
 		}
 		
@@ -129,13 +138,15 @@ public class Friendlist  extends JFrame implements ActionListener{//容器
 		this.add(myFriendPanel,"1");
 		this.add(myStrangerPanel,"2");
 		this.setSize(150,500);
+		this.setTitle(userName+"的好友列表");
+		this.setIconImage(new ImageIcon("image/duck2.gif").getImage());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null); 
 		this.setVisible(true);
 	}
 
 	public static void main(String[] args) {
-		Friendlist friendList=new Friendlist();
+		//Friendlist friendList=new Friendlist(this.userName);
 		// TODO Auto-generated method stub
 
 	}
@@ -144,6 +155,43 @@ public class Friendlist  extends JFrame implements ActionListener{//容器
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==myStrangerButton) cardLayout.show(this.getContentPane(), "2");
 		if(e.getSource()==myFriendButton1) cardLayout.show(this.getContentPane(), "1");
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		if(arg0.getClickCount()==2){
+			JLabel jlbl=(JLabel)arg0.getSource();
+		
+		String receiver=jlbl.getText();
+		new Friendchat(this.userName,receiver);
+		}
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+	JLabel    jlbl1=(JLabel)arg0.getSource();
+	jlbl1.setForeground(Color.red);
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		JLabel    jlbl1=(JLabel)arg0.getSource();
+		jlbl1.setForeground(Color.black);
+		}
+		
+	
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

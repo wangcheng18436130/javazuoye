@@ -1,10 +1,12 @@
 package com.yychat.view;//包名，作用管理类
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
-
-public class ClientLogin extends JFrame{//类名：ClientLogin,继承
+//在类中实现动作监听器接口
+public class ClientLogin extends JFrame  implements ActionListener{//类名：ClientLogin,继承
 
 	//定义北部组件
 	JLabel jlbl1;
@@ -51,6 +53,7 @@ public class ClientLogin extends JFrame{//类名：ClientLogin,继承
 		
 		//创建南部组件
 		jb1=new JButton(new ImageIcon("images/denglu.gif"));
+		jb1.addActionListener(this);//添加监听器
 		jb2=new JButton(new ImageIcon("images/zhuce.gif"));
 		jb3=new JButton(new ImageIcon("images/quxiao.gif"));
 		jp1=new JPanel();
@@ -62,13 +65,24 @@ public class ClientLogin extends JFrame{//类名：ClientLogin,继承
 		
 		this.setSize(350,240);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//用途？
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);	
 		
 	}
 	public static void main(String[] args) {
-		ClientLogin clientLogin=new ClientLogin();//新创建对象，引用变量
+		
+		ClientLogin cl=new ClientLogin();//新创建对象，引用变量
 		//clientLogin=null;//对象就会被垃圾回收器回收
 
+	}
+	@Override
+	public void actionPerformed(ActionEvent arg0) {//添加事件处理代码
+		if(arg0.getSource()==jb1) {
+			String userName=jtf1.getText();
+			new Friendlist(userName);
+			this.dispose();
+		}
+		
 	}
 
 }
